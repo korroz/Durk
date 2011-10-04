@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Durk", "Durk\Durk.csproj", "{DB2EEC51-9CA3-4441-BB4B-E26143ABF42A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Durk.Tests", "Durk.Tests\Durk.Tests.csproj", "{A39614F8-91A3-4630-B19E-30040702F30D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{DB2EEC51-9CA3-4441-BB4B-E26143ABF42A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB2EEC51-9CA3-4441-BB4B-E26143ABF42A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB2EEC51-9CA3-4441-BB4B-E26143ABF42A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A39614F8-91A3-4630-B19E-30040702F30D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A39614F8-91A3-4630-B19E-30040702F30D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A39614F8-91A3-4630-B19E-30040702F30D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A39614F8-91A3-4630-B19E-30040702F30D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
