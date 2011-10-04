@@ -1,0 +1,38 @@
+﻿@{
+	ViewBag.Title = "Chat";
+}
+
+<hgroup class="title">
+	<h1>Chat.</h1>
+	<h2>Or you could just idle.</h2>
+</hgroup>
+
+<ul id="messages">
+</ul>
+<script id="msgTmpl" type="text/x-jquery-tmpl">
+	<li><span class="nick">${nick}</span>:&nbsp;<span class="msg">${msg}</span></li>
+</script>
+
+<ul id="users" data-bind="template: { name: 'usrTmpl', foreach: users }">
+</ul>
+<script id="usrTmpl" type="text/x-jquery-tmpl">
+	<li data-bind="text: name"></li>
+</script>
+
+<fieldset>
+	<legend>Message:</legend>
+	<input type="text" id="msg" />
+	<button id="send" data-bind="click: sendMessage">Send</button>
+</fieldset>
+
+@section scripts {
+	<script src="@Url.Content("~/Scripts/knockout-1.3.0beta.js")"></script>
+	<script src="@Url.Content("~/Scripts/json2.min.js")"></script>
+	<script src="@Url.Content("~/Scripts/jQuery.tmpl.min.js")"></script>
+	<script src="@Url.Content("~/Scripts/jquery.signalR.min.js")"></script>
+	<script src="@Url.Content("~/signalr/hubs")"></script>
+	<script>
+		var app = new window.chatApplication();
+		app.start();
+	</script>
+}

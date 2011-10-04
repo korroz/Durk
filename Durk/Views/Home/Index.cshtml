@@ -1,0 +1,37 @@
+﻿@{
+	ViewBag.Title = "What To Do";
+}
+
+@section featured {
+<section class="featured">
+	<div class="content-wrapper">
+		<hgroup class="title">
+			<h1>@ViewBag.Title.</h1>
+			<h2>@ViewBag.Message</h2>
+		</hgroup>
+		<p>
+			This is Durk, a small chat application using fancy comet techniques to make for a smooth and real-time user
+			experience.
+		</p>
+		<p><small>(TODO: Make fancier with <span class="highlight">highlights</span> and <a href="#">links</a> later)</small></p>
+	</div>
+</section>
+}
+
+
+<h3>Here's what you need to do:</h3>
+
+<ol class="round">
+	<li class="one">
+		<h5>Sign up</h5>
+		Register a user so you can be authenticated and then get access to the chat.
+	</li>
+	<li class="two">
+		<h5>Head to the @Html.ActionLink("Chat", "Chat")</h5>
+		Once authenticated you are allowed to enter the chat.
+	</li>
+	<li class="three">
+		<h5>Type + Enter</h5>
+		Message away!
+	</li>
+</ol>
