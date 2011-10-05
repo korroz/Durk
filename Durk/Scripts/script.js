@@ -15,8 +15,8 @@ window.chatApplication = function () {
 	};
 
 	this.hub = $.connection.chat;
-	this.hub.addMessage = function (jsonMessage) {
-		app.viewModel.addMessage(JSON.parse(jsonMessage));
+	this.hub.addMessage = function (jsonChatMessage) {
+		app.viewModel.addMessage(JSON.parse(jsonChatMessage));
 	};
 	this.hub.userEntered = function (jsonUser) {
 	};
@@ -28,9 +28,9 @@ window.chatApplication = function () {
 			app.hub.send(msg.val()).fail(function (e) { alert(e); });
 			msg.val("");
 		},
-		addMessage: function (message) {
+		addMessage: function (chatMessage) {
 			var messages = $("#messages");
-			$("#msgTmpl").tmpl(message).appendTo(messages);
+			$("#msgTmpl").tmpl(chatMessage).appendTo(messages);
 			messages.scrollTop(messages[0].scrollHeight);
 		}
 	};
