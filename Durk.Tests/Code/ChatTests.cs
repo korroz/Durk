@@ -8,16 +8,21 @@ using Moq;
 using SignalR.Hubs;
 using System.Dynamic;
 using System.Security.Principal;
+using System.Web.Helpers;
 
 namespace Durk.Tests.Code
 {
+	public static class Util
+	{
+		public static T FromJsonTo<T>(this string json)
+		{
+			return Json.Decode<T>(json);
+		}
+	}
+
 	public class ChatTests
 	{
 		#region Test helpers
-
-		public static class Util
-		{
-		}
 
 		public class TestAgent : DynamicObject, IClientAgent
 		{
@@ -87,17 +92,20 @@ namespace Durk.Tests.Code
 		#endregion
 
 		[Fact]
-		public void Send_Should_Call_addMessage_On_Clients()
+		public void Send_Should_Call_addMessage_On_Clients_With_Json_ChatMessage()
 		{
 			var chat = new Chat();
 			var message = "Some line";
-			var agent = new TestAgent();
-			chat.Agent = agent;
-			chat.Context = new HubContext(null, null, new GenericPrincipal(new GenericIdentity("SomeUser"), null));
+			var user = "SomeUser";
+			chat.Agent = new TestAgent();
+			chat.Context = new HubContext(null, null, new GenericPrincipal(new GenericIdentity(user), null));
 
 			chat.Send(message);
 
-			Assert.False(agent.CalledMethod("addMessage").GetArgument<string>() == "");
+			ChatMessage chatMessage = null;
+			Assert.DoesNotThrow(() => chatMessage = ((TestAgent)chat.Agent).CalledMethod("addMessage").GetArgument<string>().FromJsonTo<ChatMessage>());
+			Assert.True(chatMessage.Message == message);
+			Assert.True(chatMessage.Nick == user);
 		}
 	}
 }
