@@ -10,7 +10,7 @@
 <ul id="messages">
 </ul>
 <script id="msgTmpl" type="text/x-jquery-tmpl">
-	<li><span class="nick">${Nick}</span>:&nbsp;<span class="msg">${Message}</span></li>
+	<li><small class="time">${Time}</small>&nbsp;<span class="nick">${Nick}</span>:&nbsp;<span class="msg">${Message}</span></li>
 </script>
 
 <ul id="users" data-bind="template: { name: 'usrTmpl', foreach: users }">

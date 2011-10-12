@@ -29,6 +29,8 @@ window.chatApplication = function () {
 			msg.val("");
 		},
 		addMessage: function (chatMessage) {
+			var time = new Date();
+			chatMessage.Time = time.getHours() + ":" + time.getMinutes();
 			var messages = $("#messages");
 			$("#msgTmpl").tmpl(chatMessage).appendTo(messages);
 			messages.scrollTop(messages[0].scrollHeight);
