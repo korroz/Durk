@@ -146,6 +146,8 @@
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\dateformat.js" />
+    <Content Include="Scripts\dateformat.min.js" />
     <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
