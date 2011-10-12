@@ -44,6 +44,9 @@ window.chatApplication = function () {
 				var count = this.unread();
 				this.unread(++count);
 			}
+		},
+		focusInput: function () {
+			$("#msg").focus();
 		}
 	};
 	this.viewModel.unread = ko.dependentObservable({
@@ -72,11 +75,15 @@ window.chatApplication = function () {
 
 			// Setup events
 			$("#msg").keyup(function (event) {
+				if (event.keyCode == 13) {
+					app.viewModel.sendMessage();
+					app.viewModel.focusInput();
+					event.preventDefault();
+				}
+			}).keydown(function (event) {
 				if (event.keyCode == 13)
-					$("#send").click();
+					event.preventDefault();
 			});
-
-			$("#msg").focus();
 
 			$(window).blur(function () {
 				app.viewModel.windowActive(false);
@@ -84,6 +91,9 @@ window.chatApplication = function () {
 			$(window).focus(function () {
 				app.viewModel.windowActive(true);
 			});
+
+			// Start state
+			app.viewModel.focusInput();
 
 			// SignalR
 			$.connection.hub.start();
