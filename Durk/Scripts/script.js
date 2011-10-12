@@ -23,8 +23,7 @@ window.chatApplication = function () {
 	};
 
 	this.viewModel = {
-		unreadCount: ko.observable(0),
-		unread: null, // dependentObservable
+		unread: ko.observable(0),
 		title: null, // dependentObservable
 		windowActive: ko.observable(true),
 		users: ko.observableArray([new user("Doom"), new user("Lolzorz")]),
@@ -49,17 +48,6 @@ window.chatApplication = function () {
 			$("#msg").focus();
 		}
 	};
-	this.viewModel.unread = ko.dependentObservable({
-		read: function () {
-			if (this.windowActive())
-				this.unreadCount(0);
-			return this.unreadCount();
-		},
-		write: function (value) {
-			this.unreadCount(value);
-		},
-		owner: this.viewModel
-	});
 	this.viewModel.title = ko.dependentObservable(function () {
 		var count = this.unread();
 		return (count) ? "(".concat(count, ")", originalTitle) : originalTitle;
@@ -71,6 +59,9 @@ window.chatApplication = function () {
 			ko.applyBindings(app.viewModel);
 			app.viewModel.title.subscribe(function (newTitle) {
 				document.title = newTitle;
+			});
+			app.viewModel.windowActive.subscribe(function (itIs) {
+				if (itIs) app.viewModel.unread(0);
 			});
 
 			// Setup events
