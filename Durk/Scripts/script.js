@@ -46,6 +46,13 @@ window.chatApplication = function () {
 		},
 		focusInput: function () {
 			$("#msg").focus();
+		},
+		addBookmarkLine: function () {
+			this.removeBookmarkLine();
+			$("<hr id='bookmarkLine'/>").appendTo($("#messages"));
+		},
+		removeBookmarkLine: function () {
+			$("#bookmarkLine").remove();
 		}
 	};
 	this.viewModel.title = ko.dependentObservable(function () {
@@ -61,7 +68,11 @@ window.chatApplication = function () {
 				document.title = newTitle;
 			});
 			app.viewModel.windowActive.subscribe(function (itIs) {
-				if (itIs) app.viewModel.unread(0);
+				if (itIs) {
+					app.viewModel.unread(0);
+				} else {
+					app.viewModel.addBookmarkLine();
+				}
 			});
 
 			// Setup events
