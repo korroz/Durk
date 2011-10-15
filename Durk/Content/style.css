@@ -517,12 +517,16 @@ aside {
 	height: 600px;
 	overflow: auto;
 	background-color: White;
-	font-size: 1.2em;
+	font-size: 16px;
 }
 
 #messages li {
 	list-style: none;
 	word-wrap: break-word;
+}
+
+#bookmarkLine {
+	margin: 4px 0 0;
 }
 
 .time {
