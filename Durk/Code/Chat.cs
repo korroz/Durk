@@ -16,16 +16,29 @@ namespace Durk.Code
 	#endregion
 	public class Chat : Hub, IDisconnect
 	{
+		public ICollection<string> PresentUsers { get; set; }
 		public void Send(string message)
 		{
 			Clients.addMessage(Json.Encode(new ChatMessage { Nick = Context.User.Identity.Name, Message = message }));
+		}
+
+		public void Join()
+		{
+			var user = Context.User.Identity.Name;
+			if (!PresentUsers.Contains(user))
+			{
+				PresentUsers.Add(user);
+				Clients.userEntered(user);
+			}
 		}
 
 		#region IDisconnect Members
 
 		public void Disconnect()
 		{
-			throw new NotImplementedException();
+			var user = Context.User.Identity.Name;
+			PresentUsers.Remove(user);
+			Clients.userLeft(user);
 		}
 
 		#endregion
