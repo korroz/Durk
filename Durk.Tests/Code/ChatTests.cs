@@ -13,16 +13,38 @@ using Durk.Tests.Helpers;
 
 namespace Durk.Tests.Code
 {
+	public class ChatBuilder
+	{
+		private Chat _product = new Chat();
+		private TestAgent _testAgent = new TestAgent();
+		private GenericPrincipal _principal;
+		public Chat Object { get { return _product; } }
+
+		private ChatBuilder() { }
+		public static ChatBuilder New()
+		{
+			return new ChatBuilder();
+		}
+		public ChatBuilder SetUser(string user)
+		{
+			_principal = new GenericPrincipal(new GenericIdentity(user), null);
+			return this;
+		}
+		public Chat Build()
+		{
+			_product.Agent = _testAgent;
+			_product.Context = new HubContext(null, null, _principal);
+			return _product;
+		}
+	}
 	public class ChatTests
 	{
 		[Fact]
 		public void Send_Should_Call_addMessage_On_Clients_With_Json_ChatMessage()
 		{
-			var chat = new Chat();
 			var message = "Some line";
 			var user = "SomeUser";
-			chat.Agent = new TestAgent();
-			chat.Context = new HubContext(null, null, new GenericPrincipal(new GenericIdentity(user), null));
+			var chat = ChatBuilder.New().SetUser(user).Build();
 
 			chat.Send(message);
 
