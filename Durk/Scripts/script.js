@@ -29,7 +29,7 @@ window.chatApplication = function () {
 		users: ko.observableArray([new user("Doom"), new user("Lolzorz")]),
 		sendMessage: function () {
 			var msg = $("#msg");
-			if(msg.val().trim()) {
+			if (msg.val().trim()) {
 				app.hub.send(msg.val()).fail(function (e) { alert(e); });
 			}
 			msg.val("");
