@@ -15,10 +15,10 @@ namespace Durk.Tests.Code
 {
 	public class ChatBuilder
 	{
-		private Chat _product = new Chat();
+		private ChatHub _product = new ChatHub();
 		private TestAgent _testAgent = new TestAgent();
 		private GenericPrincipal _principal;
-		public Chat Object { get { return _product; } }
+		public ChatHub Object { get { return _product; } }
 
 		private ChatBuilder() { }
 		public static ChatBuilder New()
@@ -30,7 +30,7 @@ namespace Durk.Tests.Code
 			_principal = new GenericPrincipal(new GenericIdentity(user), null);
 			return this;
 		}
-		public Chat Build()
+		public ChatHub Build()
 		{
 			_product.Agent = _testAgent;
 			_product.Context = new HubContext(null, null, _principal);
@@ -38,7 +38,7 @@ namespace Durk.Tests.Code
 			return _product;
 		}
 	}
-	public class ChatTests
+	public class ChatHubTests
 	{
 		[Fact]
 		public void Send_Should_Call_addMessage_On_Clients_With_Json_ChatMessage()

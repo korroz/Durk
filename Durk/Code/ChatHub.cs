@@ -14,7 +14,7 @@ namespace Durk.Code
 		public string Message { get; set; }
 	}
 	#endregion
-	public class Chat : Hub, IDisconnect
+	public class ChatHub : Hub, IDisconnect
 	{
 		public ICollection<string> PresentUsers { get; set; }
 		public void Send(string message)
