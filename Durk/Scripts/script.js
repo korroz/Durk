@@ -15,7 +15,7 @@ window.chatApplication = function () {
 		this.name = name;
 	};
 
-	this.hub = $.connection.chat;
+	this.hub = $.connection.chatHub;
 	this.hub.addMessage = function (jsonChatMessage) {
 		app.viewModel.addMessage(JSON.parse(jsonChatMessage));
 	};
