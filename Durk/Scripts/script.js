@@ -20,13 +20,22 @@ window.chatApplication = function () {
 		app.viewModel.addMessage(JSON.parse(jsonChatMessage));
 	};
 	this.hub.userEntered = function (jsonUser) {
+		app.viewModel.addUser(new user(jsonUser));
+	};
+	this.hub.userLeft = function (jsonUser) {
+		app.viewModel.removeUser(jsonUser);
+	};
+	this.hub.presentUsers = function (jsonUsers) {
+		$.each(JSON.parse(jsonUsers), function (i, usr) {
+			app.viewModel.addUser(new user(usr));
+		});
 	};
 
 	this.viewModel = {
 		unread: ko.observable(0),
 		title: null, // dependentObservable
 		windowActive: ko.observable(true),
-		users: ko.observableArray([new user("Doom"), new user("Lolzorz")]),
+		users: ko.observableArray([]),
 		sendMessage: function () {
 			var msg = $("#msg");
 			if (msg.val().trim()) {
@@ -45,6 +54,12 @@ window.chatApplication = function () {
 				var count = this.unread();
 				this.unread(++count);
 			}
+		},
+		addUser: function (user) {
+			this.users.push(user);
+		},
+		removeUser: function (userName) {
+			this.users.remove(function (usr) { return usr.name == userName; });
 		},
 		focusInput: function () {
 			$("#msg").focus();
@@ -100,7 +115,10 @@ window.chatApplication = function () {
 			app.viewModel.focusInput();
 
 			// SignalR
-			$.connection.hub.start();
+			$.connection.hub.start(function () {
+				app.hub.join();
+			});
+
 		});
 	};
 };
